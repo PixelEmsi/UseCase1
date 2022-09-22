@@ -1,0 +1,10 @@
+<template>
+    <div onclick={selectMovie} class={tileClass}>
+      <div style={backgroundStyle} class="tile"></div>
+      <div class="lower-third">
+        <!-- Movie information goes here -->
+        <h1 class="slds-truncate slds-text-heading_medium">{movie.Name}</h1>
+        <div class="slds-text-body_medium">{movie.Description__c}</div>
+      </div>
+    </div>
+  </template>

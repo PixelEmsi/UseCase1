@@ -9,7 +9,7 @@ export default class MovieSearchForm extends LightningElement {
         if (isEnterKey) {
             const searchEvent = new CustomEvent('search',{
                 detail : {
-                    boatTypeId: this.selectedMovieId
+                    movieId: this.selectedMovieId
                 }
             });
         this.dispatchEvent(searchEvent);
