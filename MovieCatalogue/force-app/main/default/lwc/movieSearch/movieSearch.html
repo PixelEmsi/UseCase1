@@ -1,0 +1,27 @@
+<template>
+    <lightning-layout multiple-rows>
+        <!-- Top -->
+        <lightning-layout-item size="12">
+            <lightning-card title="Find a Movie">
+                <!-- New Movie button goes here -->
+                <lightning-button label="New Movie" slot="actions" onclick={createNewMovie}></lightning-button>
+                <p class="slds-var-p-horizontal_small">
+                    <!-- movieSearchForm component goes here -->     
+                    <c-movie-search-form class="slds-m-top_xxx-small" onsearch={searchMovies}></c-movie-search-form>
+                </p>
+            </lightning-card>
+        </lightning-layout-item>
+        <!-- Bottom -->
+        <lightning-layout-item size="12" class="slds-p-top_small slds-is-relative">
+            <!-- Spinner goes here -->
+            <template if:true={isLoading}>
+                <lightning-spinner variant="brand" alternative-text="Loading" size="large"></lightning-spinner>
+            </template>
+            <!-- movieSearchResults goes here -->
+            <lightning-card title="Movies" icon-name="standard:opportunity">
+                <c-movie-search-result onloading={handleLoading} ondoneloading={handleDoneLoading}>
+                </c-movie-search-result>
+        </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

@@ -1,0 +1,15 @@
+<template>
+    <div title={movie.Name} onclick={selectMovie} class={tileClass}>
+      <div class="tile" style={backgroundStyle}></div>
+      <div class="lower-third slds-text-body_regular">
+          <h2 class="title" >{movie.Name}</h2>
+          <p>
+              <b>Category : </b> {movie.Category__c}
+          </p>
+          <p>
+              <b>Release date : </b> 
+              <lightning-formatted-date-time value={movie.Release_date__c}></lightning-formatted-date-time>
+          </p>
+      </div>
+  </div> 
+</template>

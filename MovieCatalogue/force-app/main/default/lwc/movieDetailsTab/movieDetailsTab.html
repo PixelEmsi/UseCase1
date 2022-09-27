@@ -1,0 +1,28 @@
+<template>
+    <template if:false={wiredRecord.data}>
+        <lightning-card>
+            <!-- lightning card for the label when wiredRecord has no data goes here  -->
+            <span class="slds-align_absolute-center">Please select a movie</span>
+        </lightning-card>
+    </template>
+    <template if:true={wiredRecord.data}>
+       <!-- lightning card for the content when wiredRecord has data goes here  -->
+       <lightning-tabset variant="scoped">
+        <lightning-tab label='Details'>
+            <lightning-card title={movieName} icon-name={detailsTabIconName}>
+                <lightning-button label='Full Details' onclick={navigateToRecordViewPage} slot="actions"></lightning-button>
+                <lightning-record-view-form record-id={movieId} object-api-name={objectApiName} density='compact'>
+                    <lightning-output-field field-name={descriptionField}></lightning-output-field>
+                    <lightning-output-field field-name={releaseDate}></lightning-output-field>
+                </lightning-record-view-form>
+            </lightning-card>
+        </lightning-tab>
+        <lightning-tab label='Reviews' value='reviews'>
+            <c-movie-reviews record-id={movieId}></c-movie-reviews>
+        </lightning-tab>
+        <lightning-tab label='Add review'>
+            <c-movie-add-review-form record-id={movieId} oncreatereview={handleReviewCreated}></c-movie-add-review-form>
+        </lightning-tab>
+    </lightning-tabset>
+    </template>
+</template>
