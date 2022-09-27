@@ -8,9 +8,8 @@ import MOVIEMC from '@salesforce/messageChannel/MovieMessageChannel__c';
 
 export default class MovieSearchResult extends LightningElement {
 
-
     selectedMovieId;
-    @api movieId;
+    @api movieName;
     @track movies;
     @track isLoading = false;
 
@@ -20,33 +19,40 @@ export default class MovieSearchResult extends LightningElement {
     messageContext;
 
     
-    @wire(getMovies, { movieId: '$movieId' })
+    @wire(getMovies, { movieName: '$movieName' })
     wiredMovies(result) {
-        if (result.data) {
-            this.movies = result.data;
+        const { data, error } = result;
+        if (data) {
+            console.log("data", data);
+            this.movies = data;
+        } else if (error) {
+            console.log("error", error);
         }
+        this.isLoading = false;
+        this.notifyLoading(this.isLoading);
     }
     
 
     // public function that updates the existing movieId property
     // uses notifyLoading
     @api
-    searchMovies(movieId) {
-        this.movieId = movieId;
+    searchMovies(movieName) {
+        this.movieName = movieName.toLowerCase();
         this.isLoading = true;
         this.notifyLoading(this.isLoading);
+        console.log(movieName);
     }
 
 
     // this function must update selectedMovieId and call sendMessageService
-    updateSelectedTile(event) {
+    updateSelectedTile(event) {   
         this.selectedMovieId = event.detail.movieId;
+        console.log('movie selected',this.selectedMovieId);
         this.sendMessageService(this.selectedMovieId);
     }
 
     // Publishes the selected movieId on the MOVIEMC.
     sendMessageService(movieId) {
-
         const payload = { recordId: movieId };
         publish(this.messageContext, MOVIEMC, payload);
     }

@@ -11,6 +11,11 @@ export default class MovieTile extends LightningElement {
     @api
     selectedMovieId;
 
+    connectedCallback() { 
+      console.log('tile is here',this.movie.Name);
+      console.log('picture url ',this.movie.Picture__c);
+    }
+
     // Getter for dynamically setting the tile class based on whether the
     // current movie is selected
     get tileClass() {
@@ -20,14 +25,14 @@ export default class MovieTile extends LightningElement {
           return TILE_WRAPPER_UNSELECTED_CLASS;
         }
     }
-
-    // Getter for dynamically setting the background image for the picture
+    
     get backgroundStyle() { 
-        return `background-image: url(${this.movie.Picture__c})`;
-      }
-
-
+    //  return this.movie.Picture__c ? `background-image: url(${this.movie.Picture__c})`: `background: url('/resource/movieLogo2')`;
+      return  `background: url(${this.movie.Picture__c})`;
+    }
+    
     selectMovie() { 
+      console.log('select movie');
         this.selectedMovieId = this.movie.Id;
   
         const movieselect = new CustomEvent('movieselect', {
@@ -35,6 +40,6 @@ export default class MovieTile extends LightningElement {
             movieId: this.selectedMovieId
           }
         });
-        this.dispatchEvent(movieSelect);
+        this.dispatchEvent(movieselect);
       }
 }

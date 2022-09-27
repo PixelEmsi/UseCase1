@@ -1,11 +1,13 @@
 <template>
     <template if:true={movies}>
         <div class="slds-scrollable_y">
-            <lightning-layout horizontal-align="center" multiple-rows>
-                <template for:each={movies} for:item="movies">
+            <lightning-layout horizontal-align="center" multiple-rows="true">
+                <template for:each={movies} for:item="movie">
                     <lightning-layout-item key={movie.Id} padding="around-small" size="12" small-device-size="6"
-                        medium-device-size="4" large-device-size="3">
-                        
+                        medium-device-size="4" large-device-size="3"
+                        class="slds-var-p-around_x-small">
+                        <c-movie-tile movie={movie} selected-movie-id={selectedMovieId}
+                                    onmovieselect={updateSelectedTile}></c-movie-tile>
                     </lightning-layout-item>
                 </template>
             </lightning-layout>
